@@ -26,28 +26,24 @@
             <h1 class="ui header dividing" style="margin-top: 30px;" >Projeto Virando Herói</h1>
             
 
-            <div class="ui link cards centered">
+            <div th:each="ong : ${ongs}" class="ui link cards centered">
 
-
-                <div class="card">
-                    <div class="image">
-                        <img src="https://www.google.com.br/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
-                    </div>
-                    <div class="content">
-                    <div class="header">titulo qualquer</div>
-                    <div class="description">
-                        descricao da vaga teste
-                    </div>
-                    </div>
-                    <div class="extra content">
-                        <span class="">
-                            <a class="ui primary " href="/inscrever/1">Inscrever-se</a>
-                        </span>
-                        <span class="right floated ">
-                            Postado em 2012
-                        </span>
-                    </div>
-                </div>
+				
+	                <div th:each="vaga : ${ong.vagas}" class="card">
+	                    <div class="image">
+	                        <img th:src="@{${ong.urlImg}}">
+	                    </div>
+	                    <div class="content">
+	                    <div class="header" th:text="${vaga.titulo}"></div>
+	                    <div class="description" th:text="${vaga.descricao}"></div>
+	                    </div>
+	                    <div class="extra content">
+	                        <span class="">
+	                            <a class="ui primary " th:href="@{'/inscrever/'+${ong.id}(vagaId=${vaga.id})}">Inscrever-se</a>
+	                        </span>
+	                        <span class="right floated">Expira em [[${#dates.format(vaga.dataExpiracao, 'dd/mm/yyyy')}]]</span>
+	                    </div>
+	                </div>
 
 
             </div>

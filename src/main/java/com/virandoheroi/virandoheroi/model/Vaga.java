@@ -7,34 +7,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Vaga {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-	
+
 	@Column
 	private String titulo;
-	
+
 	@Column
 	private String descricao;
-	
+
 	@Column
 	@Temporal(TemporalType.DATE)
 	private Date dataPostagem;
-	
+
 	@Column
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-mm-dd")
 	private Date dataExpiracao;
-	
-	@ManyToOne
-	private Ong ong;
-	
+
 	public Integer getId() {
 		return id;
 	}

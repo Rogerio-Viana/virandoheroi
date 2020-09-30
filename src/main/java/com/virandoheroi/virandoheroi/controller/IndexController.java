@@ -7,16 +7,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.virandoheroi.virandoheroi.service.OngService;
 
-@RequestMapping({"/", ""})
+@RequestMapping({ "/", "" })
 @Controller
 public class IndexController {
-	
+
 	@Autowired
 	private OngService ongService;
-	
-	@RequestMapping({"/"})
+
+	@RequestMapping({ "/" })
 	public ModelAndView index() {
-		return new ModelAndView("index")
-				.addObject("ongs", ongService.buscarOngs());
+		return new ModelAndView("index").addObject("ongs", ongService.buscarOngs());
 	}
 }

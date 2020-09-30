@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Virando Herói</title>
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+		
+		<!--JavaScript Tempate -->
+		<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+		
+	
+
+        <style>
+            .cards .card .image img{
+                max-height: 180px;
+            }
+        </style>
+
+    </head>
+    <body class="antialiased">
+        <div class="ui container">
+            <h1 class="ui header dividing" style="margin-top: 30px;" >Projeto Virando Herói</h1>
+            
+            <form class="ui form" action="/ong" method="POST">
+	            
+	            <input type="hidden" name="id" th:value="${ong?.id}">
+	            <input type="hidden" name="codAcesso" th:value="${ong?.codAcesso}">
+	            
+	            <div class="ui field">
+	            	<label>Nome</label>
+	            	<input type="text" placeholder="Nome" name="nome" th:value="${ong?.nome}" />
+	            </div>
+	            
+	            <div class="two fields">
+		            <div class="ui field">
+		            	<label>Contato</label>
+		            	<input type="text" placeholder="Contato" name="contato" th:value="${ong?.contato}"/>
+		            </div>
+		            <div class="ui field">
+		            	<label>Endereço</label>
+		            	<input type="text" placeholder="Endereço" name="endereco" th:value="${ong?.endereco}"/>
+		            </div>
+	            </div>
+	            
+	            <div class="ui field">
+	            	<label>URL da Imagem</label>
+	            	<input type="text" placeholder="URL Imagem" name="urlImg" th:value="${ong?.urlImg}"/>
+	            </div>
+	            
+	            <div class="ui field">
+	            	<label>Descrição</label>
+					<textarea rows="10" cols="60" name="descricao" th:text="${ong?.descricao}"></textarea>
+	            </div>
+	            
+	            <button onclick="addVaga()" type="button" class="ui basic button">
+				  <i class="icon plus"></i>
+				  Adicionar Vaga
+				</button>
+				
+				<div th:each="vaga,iter : ${ong?.vagas}" class="vaga" style="margin-top: 15px;">
+			      	<h4 class="ui header dividing">Vaga</h4>
+			      	
+			      	<div class="two fields">
+			          	<div class="field">
+								<label>Título</label>
+								<input type="text" placeholder="Título" th:field="*{ong.vagas[__${iter.index}__].titulo}" />
+			          	</div>
+			          	
+			          	<div class="field">
+			          		<label>Data Expiração</label>
+			          		<input type="date"  th:field="*{ong.vagas[__${iter.index}__].dataExpiracao}"/>
+			          	</div>
+			      	</div>
+			      	
+			      	<div class="field">
+			      		<label>Descrição</label>
+			      		<textarea rows="" cols="" th:field="*{ong.vagas[__${iter.index}__].descricao}"></textarea>
+			      	</div>
+			      	
+			     </div>
+				
+	            <div id="addVaga"></div>
+
+	           	<button 
+	           	style="
+	           		margin-top: 15px;
+	           		margin-bottom: 15px;" 
+	           	class="ui button success" type="submit">Salvar</button>
+	           	
+            </form>
+
+
+        </div>
+        
+        
+<script type="text/javascript">
+	
+	let countVaga = [[${countVaga}]]; 
+
+  var template = Handlebars.compile(`
+		  <div class="vaga" style="margin-top: 15px;">
+      	<h4 class="ui header dividing">Vaga</h4>
+      	
+      	<div class="two fields">
+          	<div class="field">
+					<label>Título</label>
+					<input type="text" placeholder="Título" name="vagas[{{countVaga}}].titulo"/>
+          	</div>
+          	
+          	<div class="field">
+          		<label>Data Expiração</label>
+          		<input type="date" name="vagas[{{countVaga}}].dataExpiracao" />
+          	</div>
+      	</div>
+
+      	<div class="field">
+      		<label>Descrição</label>
+      		<textarea rows="" cols="" name="vagas[{{countVaga}}].descricao">Descrição...</textarea>
+      	</div>
+      	
+      </div>`);
+  
+  function addVaga(){
+	  $('#addVaga').append(template({ 
+		  countVaga: countVaga 
+		  }));
+	  countVaga++;
+  }
+  
+  	
+  </script>
+        
+        
+    </body>
+</html>

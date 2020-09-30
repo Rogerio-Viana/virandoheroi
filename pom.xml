@@ -11,6 +11,7 @@
 	</parent>
 	<groupId>com.virandoheroi</groupId>
 	<artifactId>virandoheroi</artifactId>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>virandoheroi</name>
 	<description>Demo project for Spring Boot</description>

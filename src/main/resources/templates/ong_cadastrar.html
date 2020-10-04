@@ -88,6 +88,13 @@
 			     </div>
 				
 	            <div id="addVaga"></div>
+	            
+	            <div class="ui message">
+                    <div class="header">
+                        Vagas
+                    </div>
+                    <p>Vagas sem 'Título' seram apagadas e não salvas</p>
+                </div>
 
 	           	<button 
 	           	style="
@@ -101,7 +108,7 @@
         </div>
         
         
-<script type="text/javascript">
+<script th:inline="javascript" type="text/javascript">
 	
 	let countVaga = [[${countVaga}]]; 
 
@@ -112,25 +119,29 @@
       	<div class="two fields">
           	<div class="field">
 					<label>Título</label>
-					<input type="text" placeholder="Título" name="vagas[{{countVaga}}].titulo"/>
+					<input type="text" placeholder="Título" name="vagas[{{{count}}}].titulo"/>
           	</div>
           	
           	<div class="field">
           		<label>Data Expiração</label>
-          		<input type="date" name="vagas[{{countVaga}}].dataExpiracao" />
+          		<input type="date" name="vagas[{{{count}}}].dataExpiracao" />
           	</div>
       	</div>
 
       	<div class="field">
       		<label>Descrição</label>
-      		<textarea rows="" cols="" name="vagas[{{countVaga}}].descricao">Descrição...</textarea>
+      		<textarea rows="" cols="" name="vagas[{{{count}}}].descricao">Descrição...</textarea>
       	</div>
       	
       </div>`);
   
   function addVaga(){
+	  if(countVaga === null || countVaga == null){
+		  countVaga = 1
+	  }
+	  
 	  $('#addVaga').append(template({ 
-		  countVaga: countVaga 
+		  count: countVaga 
 		  }));
 	  countVaga++;
   }

@@ -27,8 +27,9 @@ public class OngController {
 
 	@ResponseBody
 	@PostMapping({ "", "/" })
-	public String ongCadastrar(@ModelAttribute Ong ong) {
-		return "Use sei código para atualizar seus dados.\nAcesse '/ong/seu_codigo_de_acesso'.\nCódigo de acesso: " + ongService.cadastrarOng(ong).getCodAcesso();
+	public String ongCadastrar(@ModelAttribute Ong model) {
+		Ong ong = ongService.cadastrarOng(model);
+		return "Use sei código para atualizar seus dados.\nAcesse '/ong/seu_codigo_de_acesso'.\nCódigo de acesso: " + ong.getCodAcesso();
 	}
 
 	@GetMapping({ "/{id}", "/{id}/" })
@@ -36,7 +37,7 @@ public class OngController {
 		Ong ong = ongService.buscarOng(id);
 		return new ModelAndView("ong_cadastrar")
 				.addObject("ong", ong)
-				.addObject("countVaga", ong.getVagas().size()+1);
+				.addObject("countVaga", ong.getVagas().size() + 1);
 	}
 
 }

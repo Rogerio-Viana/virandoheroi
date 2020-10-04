@@ -26,10 +26,10 @@
             <h1 class="ui header dividing" style="margin-top: 30px;" >Projeto Virando Herói</h1>
             
 
-            <div th:each="ong : ${ongs}" class="ui link cards centered">
+            <div th:each="ong : ${ongs}" class="cards">
 
-				
-	                <div th:each="vaga : ${ong.vagas}" class="card">
+					<h4 style="margin-top: 10px" class="ui header dividing" th:if="${not #lists.isEmpty(ong.vagas)}" th:text="${ong.nome}"></h4>
+	                <div th:each="vaga : ${ong.vagas}" class="ui link card">
 	                    <div class="image">
 	                        <img th:src="@{${ong.urlImg}}">
 	                    </div>
@@ -45,8 +45,14 @@
 	                    </div>
 	                </div>
 
-
             </div>
+            
+            <div class="ui message info">
+                 <div class="header">
+                     Ongs
+                 </div>
+                 Para cadastra Ong acesse <a th:href="@{/ong}">aqui.</a>
+             </div>
 
         </div>
     </body>

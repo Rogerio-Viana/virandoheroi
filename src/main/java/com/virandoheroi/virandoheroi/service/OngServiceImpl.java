@@ -31,13 +31,19 @@ public class OngServiceImpl implements OngService {
 		Ong ong = new Ong();
 		if (model.getId() != null) {
 			ong.setId(model.getId());
+			ong.setCodAcesso(model.getCodAcesso());
+		} else {
+			ong.setCodAcesso(myRandom.substring(0, 5));
 		}
 
 		List<Vaga> vagas = new ArrayList<Vaga>();
 
-		for (Vaga vaga : model.getVagas()) {
-			if (vaga.getTitulo() != null) {
-				vagas.add(vaga);
+		if (model.getVagas() != null) {
+
+			for (Vaga vaga : model.getVagas()) {
+				if (vaga.getTitulo() != null) {
+					vagas.add(vaga);
+				}
 			}
 		}
 
@@ -47,7 +53,6 @@ public class OngServiceImpl implements OngService {
 		ong.setEndereco(model.getEndereco());
 		ong.setDescricao(model.getDescricao());
 		ong.setContato(model.getContato());
-		ong.setCodAcesso(model.getCodAcesso() == null ? myRandom.substring(0, 5) : model.getCodAcesso());
 
 		return ongRepo.save(ong);
 	}
